@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: spartan-beast-api
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/spartan_beast
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+
+
+server:
+  port: 8080
+
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+
+app:
+  security:
+    jwt:
+      secret: ${JWT_SECRET}
+      issuer: spartan-beast-api
+      expiration-minutes: 60
+
+  bootstrap:
+    admin:
+      email: ${ADMIN_EMAIL:}
+      password: ${ADMIN_PASSWORD:}
+
+  cors:
+    allowed-origin: ${FRONTEND_URL:http://localhost:4200}
